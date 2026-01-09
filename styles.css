@@ -1,0 +1,834 @@
+:root {
+  /* Primary */
+  --Blue: hsl(246, 80%, 60%);
+  --Light-orange: hsl(15, 100%, 70%);
+  --Soft-blue: hsl(195, 74%, 62%);
+  --Light-red: hsl(348, 100%, 68%);
+  --Lime-green: hsl(145, 58%, 55%);
+  --Violet: hsl(264, 64%, 52%);
+  --Soft-orange: hsl(43, 84%, 65%);
+  /* Neutral */
+  --Very-dark-blue: hsl(226, 43%, 10%);
+  --Dark-blue: hsl(235, 46%, 20%);
+  --Desaturated-blue: hsl(235, 45%, 61%);
+  --Pale-blue: hsl(236, 100%, 87%);
+  --white: hsl(0, 0%, 100%);
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  box-sizing: border-box;
+}
+
+/* Smooth scroll */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+* {
+  margin: 0;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  background: var(--Very-dark-blue);
+  display: grid;
+  align-content: center;
+  padding-inline: 1.5rem;
+}
+
+.dashboard {
+  display: grid;
+  margin-block: 5rem;
+  /*
+  ```css
+margin-block: 5rem;
+```
+
+### What it does (briefly)
+
+It adds **margin on the block direction** of an element — usually **top and bottom**.
+
+Equivalent to:
+
+```css
+margin-top: 5rem;
+margin-bottom: 5rem;
+```
+
+---
+
+### Why it’s used
+
+* **Writing-mode aware** (works correctly for vertical text too)
+* More **modern and flexible** than `margin-top` / `margin-bottom`
+
+*/
+  gap: 1.5rem;
+  max-width: 69.375rem;
+  margin-inline: auto;
+}
+
+.profile-card {
+  background-color: var(--Dark-blue);
+  border-radius: 0.9375rem;
+}
+
+.profile-card__info {
+  background-color: var(--Blue);
+  border-radius: 0.9375rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 2.125rem 2rem;
+}
+
+.profile-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1875rem;
+}
+
+.profile-card__report {
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.125;
+  color: var(--Pale-blue);
+}
+
+.profile-card__name {
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 100%;
+  color: var(--white);
+}
+
+.profile-card__avatar {
+  width: 4rem;
+  border: 0.1875rem solid var(--white);
+  border-radius: 100%;
+  background: #d8d8d8;
+}
+
+.profile-card__durations {
+  background-color: var(--Dark-blue);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0 0 0.9375rem 0.9375rem;
+  padding: 1.5rem 2rem;
+}
+
+.profile-card__duration-option {
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.3125;
+  color: var(--Desaturated-blue);
+  transition: all 0.3s;
+  cursor: pointer;
+  width: fit-content;
+  border: transparent;
+  background: transparent;
+}
+
+.profile-card__duration-option.active-timeframe {
+  color: white;
+}
+
+.profile-card__duration-option:hover,
+.profile-card__duration-option.active-timeframe:hover {
+  color: white;
+}
+
+.profile-card__duration-option:focus-visible {
+  outline: 2px solid var(--Pale-blue);
+  outline-offset: 2px;
+}
+
+/*
+
+This CSS controls **how the element looks when it receives keyboard focus**.
+
+```css
+.profile-card__duration-option:focus-visible {
+  outline: 2px solid var(--Pale-blue);
+  outline-offset: 2px;
+}
+```
+
+### What it does (line by line)
+
+- `:focus-visible`  
+  → Applies **only when the element is focused via keyboard** (Tab, Shift+Tab), not mouse clicks.
+
+- `outline: 2px solid var(--Pale-blue);`  
+  → Draws a **2px blue outline** around the element.
+
+- `outline-offset: 2px;`  
+  → Moves the outline **2px away** from the element, so it doesn’t touch the border.
+
+---
+
+### Why this is used
+
+- Improves **accessibility** (keyboard users can see focus clearly)
+- Avoids showing focus styles on mouse clicks
+- Keeps layout unchanged (outlines don’t affect element size)
+*/
+
+
+.activity__title {
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.3125;
+  color: var(--white);
+}
+
+.activity__btn {
+  background: transparent;
+  border: transparent;
+}
+
+.activity__btn--svg {
+  cursor: pointer;
+  display: flex;
+}
+
+.activity__btn--path:hover {
+  fill: var(--white);
+}
+
+.activity__current-time {
+  font-weight: 400;
+  font-size: clamp(2rem, 3.5vw + 1rem, 3.5rem);
+  line-height: 2.375rem;
+  color: var(--white);
+}
+
+.activity__time-stamp {
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.125;
+  text-align: right;
+  color: var(--Pale-blue);
+}
+
+.activity {
+  border-radius: 0.9375rem;
+  height: fit-content;
+}
+
+.activity__icon-wrapper {
+  height: 2.375rem;
+  border-radius: 0.9375rem 0.9375rem 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding-inline-end: 0.875rem;
+}
+
+.activity__details {
+  background-color: var(--Dark-blue);
+  border-radius: 0.9375rem;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  transform: translateY(1px);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.activity__details:hover {
+  background-color: #33397a;
+}
+
+.activity__title-wrap,
+.activity__timeframe-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.activity__timeframe-wrap {
+  gap: 0.5rem;
+}
+
+.activity__icon {
+  width: 4.875rem;
+}
+
+.light-orange,
+.activity--work {
+  background-color: var(--Light-orange);
+}
+
+.soft-blue,
+.activity--play {
+  background-color: var(--Soft-blue);
+}
+
+.light-red,
+.activity--study {
+  background-color: var(--Light-red);
+}
+
+.lime-green,
+.activity--exercise {
+  background-color: var(--Lime-green);
+}
+
+.violet,
+.activity--social {
+  background-color: var(--Violet);
+}
+
+.soft-orange,
+.activity--self-care {
+  background-color: var(--Soft-orange);
+}
+
+@media screen and (min-width: 37.5rem) {
+  .dashboard {
+    gap: 1.875rem;
+    grid-template-areas:
+      "profile profile"
+      "work play"
+      "study exercise"
+      "social self-care";
+  }
+
+  .profile-card {
+    grid-area: profile;
+  }
+
+  .activity--work {
+    grid-area: work;
+  }
+
+  .activity--play {
+    grid-area: play;
+  }
+
+  .activity--study {
+    grid-area: study;
+  }
+
+  .activity--exercise {
+    grid-area: exercise;
+  }
+
+  .activity--social {
+    grid-area: social;
+  }
+
+  .activity--self-care {
+    grid-area: self-care;
+  }
+
+  /*
+  Great question 👍
+Your CSS uses **CSS Grid in 3 different “modes”** (mobile → tablet → desktop). I’ll explain **every grid-related thing** step-by-step and tie it to **what you actually see on screen**, with **small live-style examples** you can mentally map.
+
+---
+
+# 1️⃣ First grid: `body`
+
+```css
+body {
+  display: grid;
+  align-content: center;
+}
+```
+
+### What this does
+
+* Turns the **entire page into a grid container**
+* There is **one grid item** → `.dashboard`
+* `align-content: center` centers that grid **vertically**
+
+### Visual
+
+```
+┌────────────────────────────┐
+│                            │
+│        dashboard            │  ← centered vertically
+│                            │
+└────────────────────────────┘
+```
+
+👉 This is why your dashboard sits nicely in the middle of the screen.
+
+---
+
+# 2️⃣ Main grid: `.dashboard` (mobile-first)
+
+```css
+.dashboard {
+  display: grid;
+  gap: 1.5rem;
+}
+```
+
+### What this means
+
+* Every **direct child** of `.dashboard` is a grid item:
+
+  * `.profile-card`
+  * `.activity--work`
+  * `.activity--play`
+  * etc.
+* **No columns defined yet**, so grid defaults to:
+
+  ```
+  1 column
+  auto rows
+  ```
+
+### Mobile layout (default)
+
+```
+[ profile ]
+[ work ]
+[ play ]
+[ study ]
+[ exercise ]
+[ social ]
+[ self-care ]
+```
+
+👉 Simple vertical stack.
+
+---
+
+# 3️⃣ Tablet grid (≥ 600px)
+
+```css
+@media (min-width: 37.5rem) {
+  .dashboard {
+    grid-template-areas:
+      "profile profile"
+      "work play"
+      "study exercise"
+      "social self-care";
+  }
+}
+```
+
+## 🔑 Core concepts here
+
+### A) `grid-template-areas`
+
+You are **drawing the layout using words**.
+
+```
+"profile profile"   → 2 columns
+"work play"
+"study exercise"
+"social self-care"
+```
+
+This automatically creates:
+
+* **2 columns**
+* **4 rows**
+
+### Visual grid
+
+```
+┌─────────────┬─────────────┐
+│   profile   │   profile   │
+├─────────────┼─────────────┤
+│    work     │    play     │
+├─────────────┼─────────────┤
+│   study     │  exercise   │
+├─────────────┼─────────────┤
+│   social    │ self-care   │
+└─────────────┴─────────────┘
+```
+
+---
+
+### B) Assigning items to areas
+
+```css
+.profile-card {
+  grid-area: profile;
+}
+
+.activity--work {
+  grid-area: work;
+}
+```
+
+This means:
+
+> “Place this element **inside the cell named `work`**”
+
+💡 Order in HTML **does not matter anymore** — grid placement controls layout.
+
+---
+
+# 4️⃣ Desktop grid (≥ 985px)
+
+```css
+@media (min-width: 61.5625rem) {
+  .dashboard {
+    grid-template-areas:
+      "profile work play study"
+      "profile exercise social self-care";
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+```
+
+## A) New grid shape
+
+### Areas
+
+```
+"profile work play study"
+"profile exercise social self-care"
+```
+
+### Columns
+
+```css
+grid-template-columns: repeat(4, 1fr);
+```
+
+Means:
+
+```
+4 equal-width columns
+```
+
+---
+
+### Visual desktop layout
+
+```
+┌────────┬───────┬───────┬─────────┐
+│        │ work  │ play  │ study   │
+│profile ├───────┼───────┼─────────┤
+│        │exercise│social│self-care│
+└────────┴───────┴───────┴─────────┘
+```
+
+🧠 Key detail:
+
+* `profile` appears **twice vertically**
+* That makes it **span 2 rows automatically**
+
+Equivalent to:
+
+```css
+grid-row: span 2;
+```
+
+…but cleaner using areas.
+
+---
+
+# 5️⃣ Grid inside each `.activity`
+
+```css
+.activity {
+  display: grid;
+}
+```
+
+### Why this exists
+
+This allows:
+
+* Icon wrapper on top
+* Details card underneath
+* Natural stacking without flex hacks
+
+Think of it as:
+
+```
+[ icon wrapper ]
+[ details card ]
+```
+
+
+*/
+
+  .profile-card__avatar {
+    width: 4.875rem;
+  }
+
+  .profile-card__name {
+    font-size: 2.5rem;
+    line-height: 2.9375rem;
+  }
+
+  .activity__current-time {
+    line-height: 4.125rem;
+  }
+}
+
+@media screen and (min-width: 61.5625rem) {
+  .dashboard {
+    grid-template-areas:
+      "profile work play study"
+      "profile exercise social self-care";
+    grid-template-columns: repeat(4, 1fr);
+  }
+  /*
+  Short answer: **Yes — but with an important rule.**
+
+When the screen is **≥ `61.5625rem`**, **all applicable styles apply**, **including** the ones from smaller breakpoints — **unless they are overridden**.
+
+Let’s break it down clearly.
+
+---
+
+## 1️⃣ How media queries actually work
+
+Your breakpoints are **mobile-first**:
+
+```css
+/* Base styles → apply to ALL sizes 
+
+@media (min-width: 37.5rem) {
+  /* Tablet styles *
+}
+
+@media (min-width: 61.5625rem) {
+  /* Desktop styles 
+}
+```
+
+### At `61.5625rem` and above:
+
+| Source                              | Applies? |
+| ----------------------------------- | -------- |
+| Base styles (outside media queries) | ✅ Yes    |
+| `@media (min-width: 37.5rem)`       | ✅ Yes    |
+| `@media (min-width: 61.5625rem)`    | ✅ Yes    |
+
+👉 **CSS does not “turn off” earlier media queries.**
+
+---
+
+## 2️⃣ What happens when styles overlap?
+
+**Later rules override earlier ones** (normal CSS cascade rules).
+
+### Example from your code
+
+#### Tablet:
+
+```css
+.dashboard {
+  grid-template-areas:
+    "profile profile"
+    "work play"
+    "study exercise"
+    "social self-care";
+}
+```
+
+#### Desktop:
+
+```css
+.dashboard {
+  grid-template-areas:
+    "profile work play study"
+    "profile exercise social self-care";
+}
+```
+
+### On desktop:
+
+* Both media queries are **true**
+* The **desktop rule comes later**
+* ✅ **Desktop layout wins**
+
+---
+
+## 3️⃣ What does NOT get overridden still applies
+
+Example:
+
+```css
+@media (min-width: 37.5rem) {
+  .profile-card__avatar {
+    width: 4.875rem;
+  }
+}
+```
+
+If desktop **does not redefine** this:
+
+```css
+@media (min-width: 61.5625rem) {
+  /* no avatar width here 
+}
+```
+
+➡️ The tablet avatar width **still applies on desktop**
+
+---
+
+## 4️⃣ Mental model (very important 🧠)
+
+Think of CSS like **layers of paint**:
+
+1. Base styles = first layer
+2. Tablet styles = painted on top
+3. Desktop styles = painted last
+
+Only where you repaint does the old paint disappear.
+
+---
+
+## 5️⃣ Why this is the correct approach
+
+This is called **mobile-first CSS**:
+
+* Small screens → minimal styles
+* Bigger screens → enhance / override
+* Cleaner
+* Fewer bugs
+* Easier maintenance
+*/
+
+  .profile-card__details {
+    max-width: 8.75rem;
+  }
+
+  .activity {
+    min-height: 15.25rem;
+    display: grid;
+  }
+
+  .activity__icon-wrapper {
+    height: 2.8125rem;
+  }
+
+  .profile-card__info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.6875rem;
+    padding: 2.375rem 3.125rem 5rem 2rem;
+  }
+
+  .activity__timeframe-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-card__durations {
+    flex-direction: column;
+    padding: 1.625rem 2rem 2rem;
+    gap: 1.3125rem;
+  }
+
+  .profile-card {
+    max-width: 15.9375rem;
+  }
+
+  .activity__details {
+    padding: 1.8125rem 2.1875rem 2rem 1.875rem;
+    gap: 1.5rem;
+  }
+}
